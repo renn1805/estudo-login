@@ -1,6 +1,6 @@
 import  express, { type Request, type Response, Router } from 'express'
 import { routes } from './routes'
-import { Prisma, PrismaClient } from '@prisma/client/extension'
+import { Prisma, PrismaClient } from '../generated/prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
 const app = express()
@@ -16,5 +16,7 @@ app.use(routes)
 
 const adapter = new PrismaBetterSqlite3({url: process.env.DATABASE_URL || "DATABASE_URL not found"})
 const prisma = new PrismaClient({adapter})
+
+app.use(routes)
 
 export { prisma }
